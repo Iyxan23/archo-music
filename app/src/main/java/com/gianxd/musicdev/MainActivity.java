@@ -1,50 +1,35 @@
 package com.gianxd.musicdev;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.*;
-import android.app.*;
-import android.os.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import android.content.*;
-import android.content.res.*;
-import android.graphics.*;
-import android.graphics.drawable.*;
-import android.media.*;
-import android.net.*;
-import android.text.*;
-import android.text.style.*;
-import android.util.*;
-import android.webkit.*;
-import android.animation.*;
-import android.view.animation.*;
-import java.util.*;
-import java.util.regex.*;
-import java.text.*;
-import org.json.*;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.ProgressBar;
-import android.content.Intent;
-import android.net.Uri;
 import java.util.Timer;
 import java.util.TimerTask;
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import com.google.gson.Gson;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.DialogFragment;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.Manifest;
-import androidx.core.content.ContextCompat;
-import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends  AppCompatActivity  { 
 	
@@ -77,7 +62,7 @@ public class MainActivity extends  AppCompatActivity  {
 	}
 	
 	private void initializeLogic() {
-		logo.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/leixo.ttf"), 1);
+		logo.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/leixo.ttf"), Typeface.BOLD);
 		loadanim.setVisibility(View.GONE);
 		loadanim.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 		if (Build.VERSION.SDK_INT >= 23) {
@@ -108,13 +93,13 @@ public class MainActivity extends  AppCompatActivity  {
 									_scanMedia();
 								}
 								else {
-									BottomSheetDialog permRequest = new BottomSheetDialog(MainActivity.this);
+									final BottomSheetDialog permRequest = new BottomSheetDialog(MainActivity.this);
 									View dialogLayout = getLayoutInflater().inflate(R.layout.permission_request, null);
 									permRequest.setContentView(dialogLayout);
 									LinearLayout main = dialogLayout.findViewById(R.id.main);
 									TextView title = dialogLayout.findViewById(R.id.title);
 									Button accept = dialogLayout.findViewById(R.id.accept);
-									title.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/roboto_medium.ttf"), 0);
+									title.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/roboto_medium.ttf"), Typeface.NORMAL);
 									accept.setOnClickListener(new View.OnClickListener() {
 											@Override
 											public void onClick(View view) {
@@ -143,15 +128,15 @@ public class MainActivity extends  AppCompatActivity  {
 							}
 						}
 						else {
-							BottomSheetDialog createProfile = new BottomSheetDialog(MainActivity.this);
+							final BottomSheetDialog createProfile = new BottomSheetDialog(MainActivity.this);
 							View dialogLayout = getLayoutInflater().inflate(R.layout.create_a_profile, null);
 							createProfile.setContentView(dialogLayout);
 							LinearLayout main = dialogLayout.findViewById(R.id.main);
 							TextView title = dialogLayout.findViewById(R.id.title);
 							ImageView profile_icon = dialogLayout.findViewById(R.id.profile_icon);
-							EditText profile_name = dialogLayout.findViewById(R.id.profile_name);
+							final EditText profile_name = dialogLayout.findViewById(R.id.profile_name);
 							Button create = dialogLayout.findViewById(R.id.create);
-							title.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/roboto_medium.ttf"), 0);
+							title.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/roboto_medium.ttf"), Typeface.NORMAL);
 							profile_icon.setOnClickListener(new View.OnClickListener() {
 									@Override
 									public void onClick(View view) {
@@ -313,4 +298,4 @@ public class MainActivity extends  AppCompatActivity  {
 	
 	
 	
-}
+}
